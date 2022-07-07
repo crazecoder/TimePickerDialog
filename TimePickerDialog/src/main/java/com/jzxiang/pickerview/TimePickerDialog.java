@@ -3,9 +3,13 @@ package com.jzxiang.pickerview;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +33,7 @@ public class TimePickerDialog extends DialogFragment implements View.OnClickList
     private TimeWheel mTimeWheel;
     private long mCurrentMillSeconds;
 
-    private static TimePickerDialog newIntance(PickerConfig pickerConfig) {
+    private static TimePickerDialog newInstance(PickerConfig pickerConfig) {
         TimePickerDialog timePickerDialog = new TimePickerDialog();
         timePickerDialog.initialize(pickerConfig);
         return timePickerDialog;
@@ -67,6 +71,19 @@ public class TimePickerDialog extends DialogFragment implements View.OnClickList
         dialog.setContentView(initView());
         return dialog;
     }
+    @Override
+    public void show(FragmentManager manager, String tag) {
+        Fragment fragment = manager.findFragmentByTag(tag);
+        FragmentTransaction ft = manager.beginTransaction();
+        if (fragment != null && fragment.isAdded()) {
+            ft.show(fragment);
+        } else {
+            if (fragment == null || !fragment.isAdded()) {
+                ft.add(this, tag);
+            }
+        }
+        ft.commitNow();
+    }
 
     View initView() {
         LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -79,9 +96,12 @@ public class TimePickerDialog extends DialogFragment implements View.OnClickList
         View toolbar = view.findViewById(R.id.toolbar);
 
         title.setText(mPickerConfig.mTitleString);
+        title.setTextColor(mPickerConfig.mTVTitleColor);
         cancel.setText(mPickerConfig.mCancelString);
+        cancel.setTextColor(mPickerConfig.mTVCancelColor);
         sure.setText(mPickerConfig.mSureString);
-        toolbar.setBackgroundColor(mPickerConfig.mThemeColor);
+        sure.setTextColor(mPickerConfig.mTVSureColor);
+        toolbar.setBackgroundColor(mPickerConfig.mToolBarBgColor);
 
         mTimeWheel = new TimeWheel(view, mPickerConfig);
         return view;
@@ -165,8 +185,23 @@ public class TimePickerDialog extends DialogFragment implements View.OnClickList
             return this;
         }
 
-        public Builder setToolBarTextColor(int color) {
-            mPickerConfig.mToolBarTVColor = color;
+        public Builder setToolBarBackgroundColor(int color) {
+            mPickerConfig.mToolBarBgColor = color;
+            return this;
+        }
+
+        public Builder setCancelTextColor(int color) {
+            mPickerConfig.mTVCancelColor = color;
+            return this;
+        }
+
+        public Builder setTitleTextColor(int color) {
+            mPickerConfig.mTVTitleColor = color;
+            return this;
+        }
+
+        public Builder setSureTextColor(int color) {
+            mPickerConfig.mTVSureColor = color;
             return this;
         }
 
@@ -236,7 +271,7 @@ public class TimePickerDialog extends DialogFragment implements View.OnClickList
         }
 
         public TimePickerDialog build() {
-            return newIntance(mPickerConfig);
+            return newInstance(mPickerConfig);
         }
 
     }

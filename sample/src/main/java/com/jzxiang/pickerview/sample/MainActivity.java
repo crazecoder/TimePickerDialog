@@ -1,7 +1,8 @@
 package com.jzxiang.pickerview.sample;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -39,6 +40,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setHourText("Hour")
                 .setMinuteText("Minute")
                 .setCyclic(false)
+                .setToolBarBackgroundColor(Color.parseColor("#ffffff"))
+//                .setCancelTextColor(Color.parseColor("#000000"))
+//                .setSureTextColor(Color.parseColor("#000000"))
                 .setMinMillseconds(System.currentTimeMillis())
                 .setMaxMillseconds(System.currentTimeMillis() + tenYears)
                 .setCurrentMillseconds(System.currentTimeMillis())

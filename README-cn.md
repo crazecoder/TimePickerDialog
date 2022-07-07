@@ -1,5 +1,6 @@
 ##### 欢迎关注我
-GitHub: https://github.com/JZXiang
+fork form GitHub: https://github.com/JZXiang
+migrate to androidx
 
 ---
 
@@ -12,7 +13,7 @@ Android时间选择器，支持年月日时分，年月日，年月，月日时�
 
 ## 使用gradle 依赖:
 ```java
-   compile 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
+   implementation 'io.github.crazecoder:TimePickerDialogX:1.0.2'
 ```
 ## Demo 图片
 ![](https://github.com/JZXiang/PickerView/raw/master/preview/timepickerdialog_demo.gif)

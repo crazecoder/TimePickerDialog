@@ -1,6 +1,6 @@
 ##### Welcome to follow me on GitHub
-GitHub: https://github.com/JZXiang
-
+fork form GitHub: https://github.com/JZXiang
+migrate to androidx
 ---
 
 [中文版文档](https://github.com/JZXiang/TimePickerDialog/blob/master/README-cn.md)
@@ -15,7 +15,7 @@ Able to set the minimun and maximum millseconds.
 
 ## gradle, latest version:
 ```java
-   compile 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
+   implementation 'io.github.crazecoder:TimePickerDialogX:1.0.2'
 ```
 ## Demo picture
 ![](https://github.com/JZXiang/PickerView/raw/master/preview/timepickerdialog_demo.gif)
